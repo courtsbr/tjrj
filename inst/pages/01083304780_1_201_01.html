@@ -1,0 +1,959 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+  
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+    <script language="JavaScript" src="http://www.tjrj.jus.br/consultas/redirecionador/js/integracaoPortal.js"></script> 
+      
+        
+
+<!---->
+
+      
+      
+        
+
+<link href="http://www.tjrj.jus.br/importacao-portal/css" type="text/css" rel="stylesheet">
+<script language="javascript" type="text/javascript" src="http://www.tjrj.jus.br/importacao-portal/script"></script>
+      
+    <!--<script language="JavaScript" src="./js/print.js"></script>
+    <script language="JavaScript" src="http://www.tj.rj.gov.br/jsmenu/stm31.js"></script>
+    <script language="javascript" type="text/javascript">document.domain="tj.rj.gov.br";</script>-->
+    <title>Consulta processual por Nome</title>
+    
+    <!-- Estilo para impressão. -->
+    <style type="text/css" media="print">
+        #navegador-horiz2 { display:none; }
+        #navegador { display:none; }
+        #content-barra  { display:none; }
+        #chamada-areas { display:none; }
+        #cabecalho { display:none; }
+        #rodape { display:none; }
+        #content {
+         margin-left:0px;
+         width:100%;
+        }
+        table { border-width: 0px; }
+        #informacoes { border-width: 1px; border-style:solid }
+        select { display:none; }
+    </style>
+
+    
+    
+    <script language="javascript">
+      // ********************************************************* //
+      // função para controlar navegação de páginas
+      // ********************************************************* //
+      function navegacao(modoNav)
+      {
+        var ctl = false;
+        var pagAtual = Number(document.forms[0].paginaAtual.value);
+        document.forms[0].acao.value="navegacao";
+        
+        if (modoNav==null || modoNav == "")
+        {
+          pagAtual = Number(document.forms[0].pagina.options[document.forms[0].pagina.selectedIndex].value);
+          ctl = true;
+        }
+        else
+        {
+          if (modoNav == "1")
+            if (Number(document.forms[0].paginaAtual.value)+1 <= Number(document.forms[0].totPagina.value))
+            {
+              pagAtual = Number(document.forms[0].paginaAtual.value) + 1;
+              ctl = true;    
+            }
+          if (modoNav == "-1")
+            if (document.forms[0].paginaAtual.value-1>=1)
+            {
+              pagAtual = Number(document.forms[0].paginaAtual.value-1);
+              ctl = true;    
+            }
+          if (modoNav == "0")
+          {
+            pagAtual = 1;
+            ctl = true;
+          }
+          if (modoNav == "-2")
+          {
+            if (Number(document.forms[0].paginaAtual.value) < Number(document.forms[0].totPagina.value))
+            {
+              pagAtual = Number(document.forms[0].totPagina.value);
+              ctl = true;
+            }
+          }
+        }          
+        if (ctl == true)
+        {
+          document.forms[0].paginaAtual.value = pagAtual;
+          document.forms[0].submit();
+        }
+      }
+      
+      function novaConsulta(){
+        document.forms[0].action = "/ConsultaUnificada/consulta.do";
+        document.forms[0].submit();
+      }
+    </script>     
+    
+  </head>
+    <body leftmargin="2" topmargin="2">
+    <!--<script language="JavaScript" src="http://www.tj.rj.gov.br/jsmenu/menu_cnt.js"></script>-->
+    <div id="tudo"><!--inicio div tudo-->
+      <!-- Não importado tpl_topo.jsp-->
+    
+      <!-- INICIO - Topo-Simples -->
+      <div id="banner">
+	<div id="heading">
+		<div class="logo"></div>
+		
+		<div id="topo-estruturas" class="slideshow">
+			<img src="http://portaltj.tjrj.jus.br/tema-tjerj-cleanblue-1.0.11/images/comum/topo-estrutura/topo-imagens-estrutura.gif"/>
+		</div>
+		
+		<!-- DOCK!!! -->
+		
+		<h2 class="community-title">
+			<a href="http://portaltj.tjrj.jus.br" accesskey="1">
+				<img title='Imagem do Brasão do Estado do Rio de Janeiro' alt='Imagem do Brasão do Estado do Rio de Janeiro' class='spacer' src='http://portaltj.tjrj.jus.br/tema-tjerj-cleanblue-1.0.11/images/spacer.gif' border='0' />
+			</a>
+		</h2>
+
+	</div>
+</div>
+      <!-- FIM - Topo-Simples -->
+      
+      <!-- Não importada tpl_menu.jsp -->
+    
+      <!-- INICIO - Menu-Horizontal-->
+      <div id="navigation"> <div id="navigation-menu-left" class="nav-menu-horiz"></div> <div id="navigation-menu-center" class="nav-menu-horiz"> <ul> <li> <a href="http://portaltj.tjrj.jus.br/web/guest/home" ><span>Página Inicial</span></a> </li> <li> <a href="http://portaltj.tjrj.jus.br/web/guest/consultas" ><span>Consultas</span></a> </li> <li> <a href="http://portaltj.tjrj.jus.br/web/guest/servicos/servicos" ><span>Serviços</span></a> </li> <li> <a href="http://portaltj.tjrj.jus.br/web/guest/institucional/institucional" ><span>Institucional</span></a> </li> <li> <a href="http://portaltj.tjrj.jus.br/web/guest/concursos/concursos" ><span>Concursos</span></a> </li> <li> <a href="http://portaltj.tjrj.jus.br/web/guest/licitacoes" ><span>Licitações</span></a> </li> <li> <a href="https://webmail.tjrj.jus.br" target="_blank"><span>Webmail</span></a> </li> </ul> </div> <div id="navigation-menu-right" class="nav-menu-horiz"></div> <div class="clear"></div> </div>
+      <!-- FIM - Menu-Horizontal-->
+    
+      <!-- Não importada tpl_menu.jsp -->
+        
+        <div id="container"><!--inicio div container--> 
+              <!-- Não importada menu_lateral.jsp -->
+
+              <!-- INICIO - Menu-Lateral -->
+              <div id='navegador' class='naveg-vertical navegador'>
+	<div class='titulo'>
+		<div class="conteudo">
+			<a href="http://portaltj.tjrj.jus.br/web/guest/consultas/processos_jud/processos_jud" >Judiciais</a>
+		</div>
+	</div>
+	<ul class="layouts level-1" >
+		<li class="layouts level-1" >
+			<div class="conteudo " >
+				<a href="http://www4.tjrj.jus.br/ConsultaUnificada/consulta.do#tabs-numero-indice0" onclick="javascript:selecionaTABPorUrl(this.href)" >Por Número</a>
+				<a class=" icone "  ></a>
+			</div>
+		</li>
+		<li class="layouts level-1" >
+			<div class="conteudo " >
+				<a href="http://www4.tjrj.jus.br/ConsultaUnificada/consulta.do#tabs-nome-indice1"  onclick="javascript:selecionaTABPorUrl(this.href)">Por Nome</a>
+				<a class=" icone "  ></a>
+			</div>
+		</li>
+		<li class="layouts level-1" >
+			<div class="conteudo " >
+				<a href="http://www4.tjrj.jus.br/ConsultaUnificada/consulta.do#tabs-oab-indice2"  onclick="javascript:selecionaTABPorUrl(this.href)">Por OAB</a>
+				<a class=" icone "  ></a>
+			</div>
+		</li>
+		<li class="layouts level-1" >
+			<div class="conteudo " >
+				<a href="http://www4.tjrj.jus.br/ConsultaUnificada/consulta.do#tabs-advogado-indice3"  onclick="javascript:selecionaTABPorUrl(this.href)">Por Nome do Advogado</a>
+				<a class=" icone "  ></a>
+			</div>
+		</li>
+		<li class="layouts level-1" >
+			<div class="conteudo " >
+				<a href="http://www4.tjrj.jus.br/ConsultaUnificada/consulta.do#tabs-cpf-indice4"  onclick="javascript:selecionaTABPorUrl(this.href)">Por CPF / CNPJ</a>
+				<a class=" icone "  ></a>
+			</div>
+		</li>
+		<li class="layouts level-1" >
+			<div class="conteudo " >
+				<a href="http://www4.tjrj.jus.br/ConsultaUnificada/consulta.do?o=prec#tabs-numero-indice0"  onclick="javascript:selecionaTABPorUrl(this.href);javascript:focusConsultaPrecatorioNumero()">Precatórios Judiciais</a>
+				<a class=" icone "  ></a>
+			</div>
+		</li>
+		<li class="layouts level-1" >
+			<div class="conteudo " >
+				<a href="http://www.tjrj.jus.br/scripts/weblink.mgw?MGWLPN=CONSULTA&PGM=WEBLEGOE01&LAB=LEGxWEB&PORTAL=1"  >Processos de Inconstitucionalidade</a>
+				<a class=" icone "  ></a>
+			</div>
+		</li>
+		<li class="layouts level-1" >
+			<div class="conteudo " >
+					<a href="http://www4.tjrj.jus.br/consultaPedidoFalencia/inicio.do?v=2"  >Pedidos de Falência</a>
+					<a class=" icone "  ></a>
+			</div>
+		</li>
+		<li class="layouts level-1" >
+			<div class="conteudo " >
+				<a href="http://www4.tjrj.jus.br/portalDeServicos/formularioLogin.jsp"  >Por e-mail</a>
+				<a class=" icone "  ></a>
+			</div>
+		</li>
+		<li class="layouts level-1 ultimo " >
+			<div class="conteudo " >
+				<a href="http://portaltj.tjrj.jus.br/web/guest/consultas/processos-jud/formas-dispo-consultas"  >Formas disponíveis de Consulta</a>
+				<a class=" icone "  ></a>
+			</div>
+		</li>
+	</ul>
+</div>
+              <!-- FIM - Menu-Lateral -->
+              
+             <div id="content-barra"><!--inicio div content-barra-->
+              
+                 
+
+  
+
+<!---->
+
+
+
+      <script language="javascript" type="text/javascript" src="http://www.tjrj.jus.br/js_funcoes/max_min_font_size2.js"></script>
+<!-- inicio da barra de ferramentas-->      
+      <!--
+      
+      <a href="tj_noticias.xml"><img height="17" width="26" class="margin-icos" src="${urlPortal}/imagens/ico-feed.gif" title="RSS Feed" alt="RSS Feed"/></a>
+      
+      -->
+      <!--
+      <a href="javascript:navegacao('-1');"><img height="17" width="26" class="margin-icos" src="http://www.tjrj.jus.br/imagens/ico-voltar.gif" alt="voltar" title="voltar"/></a>
+      <a href="javascript:navegacao('1')"><img height="17" width="26" class="margin-icos" src="http://www.tjrj.jus.br/imagens/ico-avancar.gif" alt="avanï¿½ar" title="avanï¿½ar"/></a>
+      -->
+      <a href="javascript:history.back();"><img height="17" width="26" class="margin-icos" src="http://www.tjrj.jus.br/imagens/ico-voltar.gif" alt="voltar" title="voltar"/></a>
+      <a href="javascript:history.go(1);"><img height="17" width="26" class="margin-icos" src="http://www.tjrj.jus.br/imagens/ico-avancar.gif" alt="avanÃ§ar" title="avanÃ§ar"/></a>
+      <a href="javascript:self.print();"><img height="17" width="26" class="margin-icos" src="http://www.tjrj.jus.br/imagens/ico-print.gif" alt="imprimir" title="imprimir"/></a>
+      <a href="javascript:novaConsulta();"><img height="17" width="26" class="margin-icos" src="http://www.tjrj.jus.br/imagens/ico-busca-arquivo.gif" alt="Nova Consulta" title="Nova Consulta"/></a>
+      <!--<a href="javascript:decreaseFontSize();"><img height="17" width="31" class="margin-icos" src="http://www.tjrj.jus.br/imagens/ico-font-menos.gif" alt="diminuir fonte" title="diminuir fonte"/></a>
+      <a href="javascript:defaultFontSize();"><img height="17" width="24" class="margin-icos"  src="http://www.tjrj.jus.br/imagens/ico-font-default.gif" alt="normalizar fonte" title="normalizar fonte" /></a>
+      <a href="javascript:increaseFontSize();"><img height="17" width="31" class="margin-icos" src="http://www.tjrj.jus.br/imagens/ico-font-mais.gif" alt="aumentar fonte" title="aumentar fonte"/></a>-->
+<!-- Fim da barra de ferramentas-->
+
+
+
+              
+              
+             </div><!--fim div content-barra-->
+             
+             <div id="content" name="content"><!--inicio div content-->
+             <table width="100%">
+                      <tr>
+                        <td align="left"><h3>Resultado da pesquisa</h3></td>
+                        <td align="right"><h3>Total de processo(s) encontrado(s): 7</h3></td>
+                      </tr>
+             </table>
+             <p><!--Inicio Usado para aumentar fontes da tabela-->
+                <form name="consultaNomeForm" method="post" action="/consultaProcessoNome/ConsultaNome.do">
+                
+                
+                <input type="hidden" name="acao" value="">
+                <input type="hidden" name="paginaAtual" value="1">
+                <input type="hidden" name="totPagina" value="1.0">
+                <input type="hidden" name="privada" value="">
+                
+                <div style="color:red; padding:10px;">
+                    
+                </div>
+                
+                <table id="barranaveg" width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr valign="middle">
+                    <td>
+                      
+                    </td>
+                  </tr>
+                </table>
+              
+                <table id="informacoes" border='0' width='100%' cellpadding='1' cellspacing='3'>
+                  <tr><td colspan="2" align='left' class="info">
+                    As informa&ccedil;&otilde;es aqui contidas n&atilde;o produzem efeitos legais.<BR> Somente a publicação no DJERJ oficializa despachos e decisões e estabelece prazos.
+                    <br><br>
+                  </td></tr>
+                  <tr valign='top'><td colspan="2" align='left' class="head">
+                    <b>TJRJ -  - 23/03/2015 19:00</b>
+                    <br><br>
+                  </td></tr>
+                  
+                  
+                      <tr valign='top'>
+                        <td align='left'>CPF/CNPJ pesquisado: <b>01083304780</b></td>
+                      </tr>
+                  
+                  
+                      
+                      <tr valign='top'>
+                        <td align='left'>Comarca: <b></b></td>
+                      </tr>
+                      <tr valign='top'>
+                        <td align='left'>Competencia: <b></b></td>
+                      </tr>
+                      
+                  
+                  <tr valign='top'>
+                    <td align='left'>Período: <b>1900 a 2015</b></td>
+                  </tr>
+                  
+                </table>
+                <br>
+                
+                
+                
+                
+                
+                                  
+                  <table>                  
+                    
+                                               
+                        
+                          <tr><td>                                               
+                          
+                          
+                          
+                            
+                              <a href="http://www4.tjrj.jus.br/consultaProcessoWebV2/consultaProc.do?v=2&amp;numProcesso=2012.001.432771-1&amp;FLAGNOME=S&amp;tipoConsulta=0&back=1&PORTAL=1&v=2">
+                                
+                                  0490292-41.2012.8.19.0001
+                                  
+                                
+                                  
+                              </a>
+                            
+                            
+                            
+                          
+                          
+                          </td></tr>
+                          
+                          
+                                                
+                        
+                        
+                      
+                        
+                        
+                        
+                          
+                          
+                            
+                              <tr><td><b>Autor:</b>
+                              GERTY PARTICIPACOES LTDA</td></tr>
+                            
+                            
+                            
+                            
+                          
+                        
+                          
+                          
+                            
+                              <tr><td><b>Réu:</b>
+                              BASTHIANA COMERCIO DE MODA E PARAMENTOS FEMININOS LTDA e outro(s)...</td></tr>
+                            
+                            
+                            
+                            
+                          
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                          <tr><td><b>Fase:</b> Arquivamento</td></tr>
+                        
+                        
+                        <!-- Note que existe um Scriplet no ínicio desse documento  
+                             com a lógica de como será exibido os labels abaixo.
+                        -->
+                        <!-- Inicio Comarca -->
+                        
+                            
+                                <tr><td><b>Comarca: </b>Comarca da Capital</td></tr>
+                            
+                        
+                        <!-- Fim Comarca -->
+                        
+                        <!-- Inicio Serventia -->
+                        
+                          <tr><td>
+                          <b>
+                            
+                                Serventia: 
+                            
+                          </b> 
+                          Cartório da 11ª Vara Cível</td></tr>
+                        
+                        <!-- Fim Comarca -->
+                        
+                        <tr><td>&nbsp;</td></tr>
+                    
+                                               
+                        
+                          <tr><td>                                               
+                          
+                          
+                          
+                            
+                              <a href="http://www4.tjrj.jus.br/consultaProcessoWebV2/consultaProc.do?v=2&amp;numProcesso=2013.001.085910-8&amp;FLAGNOME=S&amp;tipoConsulta=0&back=1&PORTAL=1&v=2">
+                                
+                                  0099848-98.2013.8.19.0001
+                                  
+                                
+                                  
+                              </a>
+                            
+                            
+                            
+                          
+                          
+                          </td></tr>
+                          
+                          
+                                                
+                        
+                        
+                      
+                        
+                        
+                        
+                          
+                          
+                            
+                              <tr><td><b>Exequente:</b>
+                              DARWIN LOURENCO CORREA</td></tr>
+                            
+                            
+                            
+                            
+                          
+                        
+                          
+                          
+                            
+                              <tr><td><b>Executado:</b>
+                              CONDUMAR INDUSTRIA E COMERCIO DE CONFECCOES E ACESSORIOS FEMININOS LTDA e outro(s)...</td></tr>
+                            
+                            
+                            
+                            
+                          
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                          <tr><td><b>Fase:</b> Expedição de Documentos</td></tr>
+                        
+                        
+                        <!-- Note que existe um Scriplet no ínicio desse documento  
+                             com a lógica de como será exibido os labels abaixo.
+                        -->
+                        <!-- Inicio Comarca -->
+                        
+                            
+                                <tr><td><b>Comarca: </b>Comarca da Capital</td></tr>
+                            
+                        
+                        <!-- Fim Comarca -->
+                        
+                        <!-- Inicio Serventia -->
+                        
+                          <tr><td>
+                          <b>
+                            
+                                Serventia: 
+                            
+                          </b> 
+                          Cartório da 38ª Vara Cível</td></tr>
+                        
+                        <!-- Fim Comarca -->
+                        
+                        <tr><td>&nbsp;</td></tr>
+                    
+                                               
+                        
+                          <tr><td>                                               
+                          
+                          
+                          
+                            
+                              <a href="http://www4.tjrj.jus.br/consultaProcessoWebV2/consultaProc.do?v=2&amp;numProcesso=2013.001.205554-0&amp;FLAGNOME=S&amp;tipoConsulta=0&back=1&PORTAL=1&v=2">
+                                
+                                  0234997-66.2013.8.19.0001
+                                  
+                                
+                                  
+                              </a>
+                            
+                            
+                            
+                          
+                          
+                          </td></tr>
+                          
+                          
+                                                
+                        
+                        
+                      
+                        
+                        
+                        
+                          
+                          
+                            
+                              <tr><td><b>Autor:</b>
+                              VABRAD ADMINISTRACAO E PARTICIPACOES LTDA</td></tr>
+                            
+                            
+                            
+                            
+                          
+                        
+                          
+                          
+                            
+                              <tr><td><b>Réu:</b>
+                              SERGIO ROS BRASIL PINTO e outro(s)...</td></tr>
+                            
+                            
+                            
+                            
+                          
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                          <tr><td><b>Fase:</b> Conclusão ao Juiz</td></tr>
+                        
+                        
+                        <!-- Note que existe um Scriplet no ínicio desse documento  
+                             com a lógica de como será exibido os labels abaixo.
+                        -->
+                        <!-- Inicio Comarca -->
+                        
+                            
+                                <tr><td><b>Comarca: </b>Comarca da Capital</td></tr>
+                            
+                        
+                        <!-- Fim Comarca -->
+                        
+                        <!-- Inicio Serventia -->
+                        
+                          <tr><td>
+                          <b>
+                            
+                                Serventia: 
+                            
+                          </b> 
+                          Cartório da 41ª Vara Cível</td></tr>
+                        
+                        <!-- Fim Comarca -->
+                        
+                        <tr><td>&nbsp;</td></tr>
+                    
+                                               
+                        
+                          <tr><td>                                               
+                          
+                          
+                          
+                            
+                              <a href="http://www4.tjrj.jus.br/consultaProcessoWebV2/consultaProc.do?v=2&amp;numProcesso=2013.001.205566-7&amp;FLAGNOME=S&amp;tipoConsulta=0&back=1&PORTAL=1&v=2">
+                                
+                                  0235009-80.2013.8.19.0001
+                                  
+                                
+                                  
+                              </a>
+                            
+                            
+                            
+                          
+                          
+                          </td></tr>
+                          
+                          
+                                                
+                        
+                        
+                      
+                        
+                        
+                        
+                          
+                          
+                            
+                              <tr><td><b>Autor:</b>
+                              REG DO BRASIL DE PARTICIPACAO E ADMINISTRACAO SA</td></tr>
+                            
+                            
+                            
+                            
+                          
+                        
+                          
+                          
+                            
+                              <tr><td><b>Réu:</b>
+                              SERGIO ROS BRASIL PINTO e outro(s)...</td></tr>
+                            
+                            
+                            
+                            
+                          
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                          <tr><td><b>Fase:</b> Conclusão ao Juiz</td></tr>
+                        
+                        
+                        <!-- Note que existe um Scriplet no ínicio desse documento  
+                             com a lógica de como será exibido os labels abaixo.
+                        -->
+                        <!-- Inicio Comarca -->
+                        
+                            
+                                <tr><td><b>Comarca: </b>Comarca da Capital</td></tr>
+                            
+                        
+                        <!-- Fim Comarca -->
+                        
+                        <!-- Inicio Serventia -->
+                        
+                          <tr><td>
+                          <b>
+                            
+                                Serventia: 
+                            
+                          </b> 
+                          Cartório da 14ª Vara Cível</td></tr>
+                        
+                        <!-- Fim Comarca -->
+                        
+                        <tr><td>&nbsp;</td></tr>
+                    
+                                               
+                        
+                          <tr><td>                                               
+                          
+                          
+                          
+                            
+                              <a href="http://www4.tjrj.jus.br/consultaProcessoWebV2/consultaProc.do?v=2&amp;numProcesso=2013.001.282118-2&amp;FLAGNOME=S&amp;tipoConsulta=0&back=1&PORTAL=1&v=2">
+                                
+                                  0319800-79.2013.8.19.0001
+                                  
+                                
+                                  
+                              </a>
+                            
+                            
+                            
+                          
+                          
+                          </td></tr>
+                          
+                          
+                                                
+                        
+                        
+                      
+                        
+                        
+                        
+                          
+                          
+                            
+                              <tr><td><b>Embargante:</b>
+                              SERGIO ROS BRASIL PINTO</td></tr>
+                            
+                            
+                            
+                            
+                          
+                        
+                          
+                          
+                            
+                              <tr><td><b>Embargado:</b>
+                              DARWIN LOURENCO CORREA</td></tr>
+                            
+                            
+                            
+                            
+                          
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                          <tr><td><b>Fase:</b> Conclusão ao Juiz</td></tr>
+                        
+                        
+                        <!-- Note que existe um Scriplet no ínicio desse documento  
+                             com a lógica de como será exibido os labels abaixo.
+                        -->
+                        <!-- Inicio Comarca -->
+                        
+                            
+                                <tr><td><b>Comarca: </b>Comarca da Capital</td></tr>
+                            
+                        
+                        <!-- Fim Comarca -->
+                        
+                        <!-- Inicio Serventia -->
+                        
+                          <tr><td>
+                          <b>
+                            
+                                Serventia: 
+                            
+                          </b> 
+                          Cartório da 38ª Vara Cível</td></tr>
+                        
+                        <!-- Fim Comarca -->
+                        
+                        <tr><td>&nbsp;</td></tr>
+                    
+                                               
+                        
+                          <tr><td>                                               
+                          
+                          
+                          
+                            
+                              <a href="http://www4.tjrj.jus.br/consultaProcessoWebV2/consultaProc.do?v=2&amp;numProcesso=2013.001.282118-2A&amp;FLAGNOME=S&amp;tipoConsulta=0&back=1&PORTAL=1&v=2">
+                                
+                                  0037375-42.2014.8.19.0001
+                                  
+                                
+                                  
+                              </a>
+                            
+                            
+                            
+                          
+                          
+                          </td></tr>
+                          
+                          
+                                                
+                        
+                        
+                      
+                        
+                        
+                        
+                          
+                          
+                            
+                              <tr><td><b>Impugnante:</b>
+                              DARWIN LOURENCO CORREA</td></tr>
+                            
+                            
+                            
+                            
+                          
+                        
+                          
+                          
+                            
+                              <tr><td><b>Impugnado:</b>
+                              SERGIO ROS BRASIL PINTO</td></tr>
+                            
+                            
+                            
+                            
+                          
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                          <tr><td><b>Fase:</b> Ato Ordinatório Praticado</td></tr>
+                        
+                        
+                        <!-- Note que existe um Scriplet no ínicio desse documento  
+                             com a lógica de como será exibido os labels abaixo.
+                        -->
+                        <!-- Inicio Comarca -->
+                        
+                            
+                                <tr><td><b>Comarca: </b>Comarca da Capital</td></tr>
+                            
+                        
+                        <!-- Fim Comarca -->
+                        
+                        <!-- Inicio Serventia -->
+                        
+                          <tr><td>
+                          <b>
+                            
+                                Serventia: 
+                            
+                          </b> 
+                          Cartório da 38ª Vara Cível</td></tr>
+                        
+                        <!-- Fim Comarca -->
+                        
+                        <tr><td>&nbsp;</td></tr>
+                    
+                                               
+                        
+                          <tr><td>                                               
+                          
+                          
+                          
+                            
+                              <a href="http://www4.tjrj.jus.br/consultaProcessoWebV2/consultaProc.do?v=2&amp;numProcesso=2013.001.296976-8&amp;FLAGNOME=S&amp;tipoConsulta=0&back=1&PORTAL=1&v=2">
+                                
+                                  0336341-90.2013.8.19.0001
+                                  
+                                
+                                  
+                              </a>
+                            
+                            
+                            
+                          
+                          
+                          </td></tr>
+                          
+                          
+                                                
+                        
+                        
+                      
+                        
+                        
+                        
+                          
+                          
+                            
+                              <tr><td><b>Exequente:</b>
+                              MARKET PLACE PARTICIPACOES E EMPREENDIMENTOS IMOBILIARIOS LTDA</td></tr>
+                            
+                            
+                            
+                            
+                          
+                        
+                          
+                          
+                            
+                              <tr><td><b>Executado:</b>
+                              SERGIO ROS BRASIL PINTO e outro(s)...</td></tr>
+                            
+                            
+                            
+                            
+                          
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                          <tr><td><b>Fase:</b> Devolução de Carta Precatória</td></tr>
+                        
+                        
+                        <!-- Note que existe um Scriplet no ínicio desse documento  
+                             com a lógica de como será exibido os labels abaixo.
+                        -->
+                        <!-- Inicio Comarca -->
+                        
+                            
+                                <tr><td><b>Comarca: </b>Comarca da Capital</td></tr>
+                            
+                        
+                        <!-- Fim Comarca -->
+                        
+                        <!-- Inicio Serventia -->
+                        
+                          <tr><td>
+                          <b>
+                            
+                                Serventia: 
+                            
+                          </b> 
+                          Cartório da 38ª Vara Cível</td></tr>
+                        
+                        <!-- Fim Comarca -->
+                        
+                        <tr><td>&nbsp;</td></tr>
+                    
+                  </table>
+                
+                  
+                  
+                  
+                    <tr><td>&nbsp;</td></tr>
+                    <tr><td>&nbsp;</td></tr>
+                    <table id="barranaveg" width="770" border="0" cellspacing="0" cellpadding="0">
+                      <tr valign="middle">
+                        <td>
+                          
+                        </td>
+                      </tr>
+                    </table>
+                  
+                  
+                
+                </form>
+                </p><!--Fim Usado para aumentar fontes da tabela-->
+             </div><!--fim div content-->
+             <div class="clear"></div>
+        </div><!--fim div container--> 
+        <div id="footer"> <div id="footer-wrapper"><p align="center">PALÁCIO DA JUSTIÇA DO ESTADO DO RIO DE JANEIRO - FÓRUM CENTRAL<br /> Av. Erasmo Braga, 115 - Centro / CEP: 20020-903 - Rua Dom Manuel, 37, Centro / CEP: 20010-090 / Tel.: (0xx21) 3133-2000<br /> Horários de funcionamento: Serventias Judiciais - 11h às 18h | Varas da Infância e da Juventude - 09h às 18h | Juizados Especiais e Adjuntos - 10h às 18h</p></div> </div> <script type="text/javascript">/*<![CDATA[*/var _gaq=_gaq||[];_gaq.push(["_setAccount","UA-870424-2"]);_gaq.push(["_setDomainName",".tjrj.jus.br"]);_gaq.push(["_trackPageview"]);(function(){var b=document.createElement("script");b.type="text/javascript";b.async=true;b.src="http://portaltj.tjrj.jus.br/tema-tjerj-cleanblue-1.0.6/js/plugins/googleanalytics/ga.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})();/*]]>*/</script>
+  </div>  
+  </body>
+</html>
